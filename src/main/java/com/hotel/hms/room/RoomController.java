@@ -1,6 +1,7 @@
 package com.hotel.hms.room;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,6 +59,24 @@ public class RoomController {
 
         return roomService.getRoomByCategory(categoryId);
 
+    }
+
+
+    @PostMapping("/calculate-total")
+    public ResponseEntity<Map<String, Double>> calculateRoomTotal(@RequestBody RoomPriceCalDto roomIds){
+
+        // basic controller level validations
+        if(roomIds.getRoomIds().size() == 0){
+            throw new FieldValidationException("Select atleast one room");
+        }
+
+        return new ResponseEntity<>(roomService.calculateTotal(roomIds.getRoomIds()) , HttpStatus.OK);
+
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<Room>> getAllRooms(){
+        return new ResponseEntity<>(roomService.getAllRooms() , HttpStatus.OK);
     }
 
 }

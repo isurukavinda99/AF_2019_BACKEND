@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RoomRepository extends MongoRepository<Room , String>{
 
-    List<Room> findAllByCategoriesIn(ArrayList arrayList);
+    List<Room> findAllByCategoriesIn(ArrayList<String> arrayList);
 
     List<Room> findAllByIdIn(List<String> roomIds);
     
